@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  flask-app:
+    build: .
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    command: flask run
+
+  tests:
+    build: .
+    container_name: flask-tests
+    volumes:
+      - .:/app
+    environment:
+      PYTHONPATH: /app
+    command: pytest tests/ --maxfail=1 --disable-warnings -q
