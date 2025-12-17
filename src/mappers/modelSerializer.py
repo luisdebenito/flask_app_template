@@ -1,6 +1,6 @@
-from models.model import MyModel
-from typing import List
-from mappers.abstractSerializer import AbstractSerializer
+from src.models.model import MyModel
+from src.mappers.abstractSerializer import AbstractSerializer
+
 
 class ModelSerializer(AbstractSerializer):
     @staticmethod
@@ -9,5 +9,3 @@ class ModelSerializer(AbstractSerializer):
             "id": model.id,
             "nombre": model.nombre,
         }
-
-

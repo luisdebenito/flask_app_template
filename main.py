@@ -1,10 +1,10 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
-from utils.response import Response
-from utils.database import db
+from src.utils.response import Response
+from src.utils.database import db
 from flask_migrate import Migrate
-from api import blueprints
+from src.api import blueprints
 
 load_dotenv()
 
@@ -41,4 +41,4 @@ def healthcheck():
     # Check blueprints
     bps = list(app.blueprints.keys())
     bps_ok = len(bps) == len(blueprints)
-    return Response.success() if db_ok and bps_ok else Response.error("", 503)
+    return Response.success("OK") if db_ok and bps_ok else Response.error("NOT OK", 503)

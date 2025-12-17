@@ -1,4 +1,5 @@
-from utils.database import db
+from src.utils.database import db
+
 
 class AbstractBaseModel(db.Model):
     __abstract__ = True
