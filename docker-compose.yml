@@ -20,5 +20,17 @@ services:
       - .:/app
     command: flask run
 
+  tests:
+    build: .
+    container_name: flask-tests
+    volumes:
+      - .:/app
+    environment:
+      DB_URL: postgresql://myuser:mypassword@postgres:5432/mydb
+      PYTHONPATH: /app
+    depends_on:
+      - postgres
+    command: pytest tests/ --maxfail=1 --disable-warnings -q
+
 volumes:
   postgres_data:
