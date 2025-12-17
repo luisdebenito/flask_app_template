@@ -3,25 +3,29 @@ from flask import Flask
 from dotenv import load_dotenv
 from utils.response import Response
 from utils.database import db
+from flask_migrate import Migrate
 from api import blueprints
 
 load_dotenv()
 
+
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.environ.get(
-    "DB_URL", "db.sqlite"
-)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL", "sqlite:///db.sqlite")
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
+migrate = Migrate(app, db)
+
 for blueprint in blueprints:
     app.register_blueprint(blueprint)
 
+
 @app.errorhandler(404)
 def basic_pages(wargs=None):
-    #whatever custom things come here
+    # whatever custom things come here
     return Response.error("Page not found", 404)
 
 
