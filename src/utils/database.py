@@ -6,7 +6,7 @@ from sqlalchemy.orm.mapper import Mapper
 db = SQLAlchemy()
 
 
-# this will be executed on every query, to avoid active=False  
+# this will be executed on every query, to avoid active=False
 # (soft deleted) records being queried, relatively fast
 @event.listens_for(db.session, "do_orm_execute")
 def add_global_active_filter(execute_state):

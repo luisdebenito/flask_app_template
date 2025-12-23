@@ -1,4 +1,4 @@
-from src.api.model import Model_b
+from src.api.plan import Plan_b
 
 
-blueprints = [Model_b]
+blueprints = [Plan_b]

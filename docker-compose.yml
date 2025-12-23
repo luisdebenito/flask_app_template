@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16
-    container_name: flask-postgres
+    container_name: plan-index-postgres
     env_file:
       - .env
     volumes:
@@ -13,16 +13,29 @@ services:
     env_file:
       - .env
     build: .
-    container_name: flask-app
+    container_name: plan-index-app
     ports:
       - "5000:5000"
     volumes:
       - .:/app
     command: flask run
+    depends_on:
+      - postgres
+
+  worker:
+    build: .
+    container_name: plan-index-worker
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: python -u src/jobs/runner.py
+    depends_on:
+      - postgres
 
   tests:
     build: .
-    container_name: flask-tests
+    container_name: plan-index-tests
     volumes:
       - .:/app
     environment:

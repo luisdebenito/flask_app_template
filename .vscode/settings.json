@@ -1,1 +1,4 @@
-{ "editor.formatOnSave": true, "editor.formatOnPaste": false }
+{
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+}
